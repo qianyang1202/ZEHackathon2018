@@ -29,7 +29,7 @@ public class BarcodeHandler extends Object {
         Document doc = Jsoup.connect(url).get();
         String productName;
 
-        String title = ( doc).title();
+        String title = doc.title();
         final Matcher matcher = TITLE_PATTERN.matcher(title);
         if (matcher.matches()) {
             productName = matcher.group(1);
@@ -38,14 +38,14 @@ public class BarcodeHandler extends Object {
             productName = "N/A";
         }
 
-        Elements productInfos = ((Element) doc).select("#info").first().select("table > tbody > tr");
+        Elements productInfos = doc.select("#info").first().select("table > tbody > tr");
         for (Element ele : productInfos) {
             String key = ele.select("td:nth-child(1)").text().replaceAll(":", "");
             String value = ele.select("td:nth-child(2)").text();
             productDetails.put(key, value);
         }
 
-        Elements shoppingInfo = ((Element) doc).getElementsByAttributeValueContaining("title", "Go to");
+        Elements shoppingInfo = doc.getElementsByAttributeValueContaining("title", "Go to");
         if (shoppingInfo != null && shoppingInfo.size() > 0) {
             for (Element element : shoppingInfo) {
                 String storeUrl = element.attr("href");
