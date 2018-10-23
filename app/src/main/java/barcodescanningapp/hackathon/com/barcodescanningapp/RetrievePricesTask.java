@@ -1,5 +1,7 @@
 package barcodescanningapp.hackathon.com.barcodescanningapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,11 +25,13 @@ public class RetrievePricesTask extends AsyncTask {
     private ListView listView;
     private PricesResultsAdapter pricesResultsAdapter;
     private String barcode;
+    private Context mContext;
 
     @Override
     protected Object doInBackground(Object[] objects) {
         barcode = (String) objects[0];
         pricesResultsActivity = (PricesResultsActivity) objects[1];
+        mContext = (Context) objects[2];
 
         BarcodeHandler barcodeHandler = new BarcodeHandler();
         Barcode bc = null;
@@ -49,13 +53,20 @@ public class RetrievePricesTask extends AsyncTask {
 
         List<Map.Entry<String, String>> productDetailsList = new ArrayList<>();
 
-        Set<Map.Entry<String, String>> productdetailsPropsSet = bc.productDetails().entrySet();
+        Set<Map.Entry<String, String>> productDetailsPropsSet = bc.productDetails().entrySet();
 
-        for (Map.Entry<String, String> prop : productdetailsPropsSet) {
+        for (Map.Entry<String, String> prop : productDetailsPropsSet) {
             productDetailsList.add(prop);
         }
 
         pricesResultsAdapter = new PricesResultsAdapter(pricesResultsActivity, productDetailsList);
         listView.setAdapter(pricesResultsAdapter);
+
+        SharedPreferences sharedPref = mContext.getSharedPreferences(
+                mContext.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        String stringValue = bc.barcode() + "\u0000" + bc.productName() + "\u0000" + bc.barcodeUrl();
+        editor.putString("" + sharedPref.getAll().size() , stringValue);
+        editor.commit();
     }
 }
