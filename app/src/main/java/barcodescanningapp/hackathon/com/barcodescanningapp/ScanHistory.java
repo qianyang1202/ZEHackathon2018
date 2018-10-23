@@ -1,8 +1,8 @@
 package barcodescanningapp.hackathon.com.barcodescanningapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -10,7 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ScanHistory extends AppCompatActivity {
+public class ScanHistory extends Activity {
 
     private static Context mContext;
 
@@ -29,6 +29,7 @@ public class ScanHistory extends AppCompatActivity {
         }
 
         ListView listView = (ListView) findViewById(R.id.list);
+
 
         ArrayAdapter<String> adapter= new CustomAdapter(list, mContext);
         listView.setAdapter(adapter);

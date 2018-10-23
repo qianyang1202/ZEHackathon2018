@@ -46,12 +46,10 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
          //retrieve scan result
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanningResult != null) {
+        System.out.println();
+        if (null != scanningResult && null != scanningResult.getContents()) {
             //we have a result
             String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
-            formatTxt.setText("FORMAT: " + scanFormat);
-            contentTxt.setText("CONTENT: " + scanContent);
             Intent displayProductPricesIntent = new Intent(this, PricesResultsActivity.class);
             displayProductPricesIntent.putExtra(KEY_BARCODE, scanContent);
             startActivity(displayProductPricesIntent);

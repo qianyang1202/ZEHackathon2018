@@ -6,17 +6,44 @@
     android:layout_marginStart="8dp"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
     android:orientation="vertical"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Product"
+        android:textFontWeight="3"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Details"
+        android:textFontWeight="3"
+        android:textSize="20dp"/>
+
     <ListView
         android:id="@+id/properties_display"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Shopping Details"
+        android:textFontWeight="3"
+        android:textSize="20dp"/>
+
+    <ListView
+        android:id="@+id/shopping_display"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -61,9 +61,7 @@ public class CustomAdapter extends ArrayAdapter<String> implements View.OnClickL
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item, parent, false);
-            viewHolder.txtBarcode = (TextView) convertView.findViewById(R.id.barcode);
             viewHolder.txtProduct = (TextView) convertView.findViewById(R.id.product);
-            viewHolder.txtDesctipt = (TextView) convertView.findViewById(R.id.descript);
             result=convertView;
 
             convertView.setTag(viewHolder);
@@ -72,9 +70,7 @@ public class CustomAdapter extends ArrayAdapter<String> implements View.OnClickL
             result=convertView;
         }
 
-        viewHolder.txtBarcode.setText(s[0]);
-        viewHolder.txtProduct.setText(s[1]);
-        viewHolder.txtDesctipt.setText(s[2]);
+        viewHolder.txtProduct.setText("Product: " + s[1]);
         // Return the completed view to render on screen
         return convertView;
     }

@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PricesResultsActivity"></activity>
+        <activity android:name=".PricesResultsActivity" />
+        <activity android:name=".ScanHistory" />
     </application>
 
 </manifest>
