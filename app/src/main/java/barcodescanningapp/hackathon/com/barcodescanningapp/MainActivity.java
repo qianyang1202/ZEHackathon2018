@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 
     public static final String KEY_BARCODE = MainActivity.class.getName() + ".KEY_BARCODE";
-    private Button scanBtn;
+    private Button scanBtn, histBtn;
     private TextView formatTxt, contentTxt;
 
     @Override
@@ -22,9 +22,11 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         scanBtn = (Button)findViewById(R.id.scan_button);
+        histBtn = (Button)findViewById(R.id.history_button);
         formatTxt = (TextView)findViewById(R.id.scan_format);
         contentTxt = (TextView)findViewById(R.id.scan_content);
         scanBtn.setOnClickListener(this);
+        histBtn.setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +36,10 @@ public class MainActivity extends Activity implements OnClickListener {
         //scan
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
+        }
+        else if (v.getId()==R.id.history_button) {
+            Intent intent = new Intent(this, ScanHistory.class);
+            startActivity(intent);
         }
     }
 

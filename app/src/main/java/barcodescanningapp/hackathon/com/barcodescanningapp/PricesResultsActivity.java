@@ -18,6 +18,6 @@ public class PricesResultsActivity extends Activity {
         Intent pricesResultsIntent = getIntent();
         String barcode = pricesResultsIntent.getStringExtra(KEY_BARCODE);
         AsyncTask retrievePricesTask = new RetrievePricesTask();
-        retrievePricesTask.execute(barcode, this);
+        retrievePricesTask.execute(barcode, this, getApplicationContext());
     }
 }

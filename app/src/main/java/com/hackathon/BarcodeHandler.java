@@ -67,7 +67,7 @@ public class BarcodeHandler extends Object {
                 }
             }
         }
-        return new Barcode(productName, url, productDetails, shoppingInfoDetails);
+        return new Barcode(productName, url, productDetails, shoppingInfoDetails, barcodeStr);
     }
 
 }

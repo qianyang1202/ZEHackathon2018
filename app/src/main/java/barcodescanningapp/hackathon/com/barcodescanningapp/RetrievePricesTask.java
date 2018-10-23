@@ -1,5 +1,8 @@
 package barcodescanningapp.hackathon.com.barcodescanningapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,12 +20,13 @@ public class RetrievePricesTask extends AsyncTask {
 
     private PricesResultsActivity pricesResultsActivity;
     private String barcode;
+    private Context mContext;
 
     @Override
     protected Object doInBackground(Object[] objects) {
         barcode = (String) objects[0];
         pricesResultsActivity = (PricesResultsActivity) objects[1];
-
+        mContext = (Context) objects[2];
         BarcodeHandler barcodeHandler = new BarcodeHandler();
         Barcode bc = null;
         try {
@@ -38,5 +42,12 @@ public class RetrievePricesTask extends AsyncTask {
         Barcode bc = (Barcode) o;
         TextView productNameTextView =  pricesResultsActivity.findViewById(R.id.product_name);
         productNameTextView.setText(bc.productName());
+
+        SharedPreferences sharedPref = mContext.getSharedPreferences(
+                mContext.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        String stringValue = bc.barcode() + "\u0000" + bc.productName() + "\u0000" + bc.barcodeUrl();
+        editor.putString("" + sharedPref.getAll().size() , stringValue);
+        editor.commit();
     }
 }
