@@ -1,6 +1,5 @@
 package barcodescanningapp.hackathon.com.barcodescanningapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -12,8 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener {
 
+    public static final String KEY_BARCODE = MainActivity.class.getName() + ".KEY_BARCODE";
     private Button scanBtn;
     private TextView formatTxt, contentTxt;
 
@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             String scanFormat = scanningResult.getFormatName();
             formatTxt.setText("FORMAT: " + scanFormat);
             contentTxt.setText("CONTENT: " + scanContent);
+            Intent displayProductPricesIntent = new Intent(this, PricesResultsActivity.class);
+            displayProductPricesIntent.putExtra(KEY_BARCODE, scanContent);
+            startActivity(displayProductPricesIntent);
         }
         else{
             Toast toast = Toast.makeText(getApplicationContext(),

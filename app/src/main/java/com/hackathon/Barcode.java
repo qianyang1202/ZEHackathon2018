@@ -16,19 +16,19 @@ public class Barcode {
         this.shoppingInfoDetails = shoppingInfoDetails;
     }
 
-    private String productName() {
+    public String productName() {
         return productName;
     }
 
-    private String barcodeUrl() {
+    public String barcodeUrl() {
         return barcodeUrl;
     }
 
-    private Map<String, String> productDetails() {
+    public Map<String, String> productDetails() {
         return productDetails;
     }
 
-    private Map<String, String> shoppingInfoDetails() {
+    public Map<String, String> shoppingInfoDetails() {
         return shoppingInfoDetails;
     }
 }
