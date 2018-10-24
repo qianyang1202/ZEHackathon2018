@@ -1,9 +1,12 @@
 package barcodescanningapp.hackathon.com.barcodescanningapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,12 +15,9 @@ import com.hackathon.BarcodeHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.hackathon.BarcodeHandler.PRODUCT_DETAIL;
 import static com.hackathon.BarcodeHandler.STORE_URL;
@@ -49,7 +49,7 @@ public class RetrievePricesTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object o){
-        Barcode bc = (Barcode) o;
+        final Barcode bc = (Barcode) o;
         TextView productNameTextView =  pricesResultsActivity.findViewById(R.id.product_name);
         productNameTextView.setText(bc.productName());
 
@@ -73,13 +73,32 @@ public class RetrievePricesTask extends AsyncTask {
         Set<Map.Entry<String, String>> productShoppingPropsSet = bc.shoppingInfoDetails().get(0).entrySet();
 
         for (Map.Entry<String, String> prop : productShoppingPropsSet) {
-            if (!PRODUCT_DETAIL.equals(prop.getKey()) & !STORE_URL.equals(prop.getKey())) {
+            final String entryKey = prop.getKey();
+            if (!PRODUCT_DETAIL.equals(entryKey) & !STORE_URL.equals(prop.getKey())) {
                 productShoppingList.add(prop);
+            }
+
+            if (STORE_URL.equals(entryKey)){
+                listShoppingView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Map.Entry<String, String> entry = (Map.Entry<String, String>) parent.getItemAtPosition(position);
+
+                        if("STORE_NAME".equals(entry.getKey())) {
+                            String url = String.format("https://www.upcitemdb.com/upc/%s", bc.getBarcode());
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            pricesResultsActivity.startActivity(i);
+                        }
+                    }
+                });
             }
         }
 
         pricesResultsAdapter = new PricesResultsAdapter(pricesResultsActivity, productShoppingList);
         listShoppingView.setAdapter(pricesResultsAdapter);
+
+
 
         SharedPreferences sharedPref = mContext.getSharedPreferences(
                 mContext.getResources().getString(R.string.app_name), Context.MODE_PRIVATE);

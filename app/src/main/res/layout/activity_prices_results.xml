@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Product"
+        android:textStyle="bold"
         android:textFontWeight="3"
         android:textSize="20dp"/>
 
@@ -27,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Details"
+        android:textStyle="bold"
         android:textFontWeight="3"
         android:textSize="20dp"/>
 
@@ -40,6 +42,7 @@
         android:layout_height="match_parent"
         android:text="Shopping Details"
         android:textFontWeight="3"
+        android:textStyle="bold"
         android:textSize="20dp"/>
 
     <ListView

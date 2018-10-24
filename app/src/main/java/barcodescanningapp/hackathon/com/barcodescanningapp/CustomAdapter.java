@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.hackathon.Barcode;
-
 import java.util.ArrayList;
 
-public class CustomAdapter extends ArrayAdapter<String> implements View.OnClickListener{
+public class CustomAdapter extends ArrayAdapter<String> {
 
     private ArrayList<String> dataSet;
     Context mContext;
@@ -28,22 +26,6 @@ public class CustomAdapter extends ArrayAdapter<String> implements View.OnClickL
         this.dataSet = data;
         this.mContext=context;
 
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        int position=(Integer) v.getTag();
-        Object object= getItem(position);
-        Barcode dataModel=(Barcode)object;
-//
-//        switch (v.getId())
-//        {
-//            case R.id.item_info:
-//                Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
-//                        .setAction("No action", null).show();
-//                break;
-//        }
     }
 
     @Override
